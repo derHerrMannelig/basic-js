@@ -13,9 +13,24 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function transform(arr) {
+  trans = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === '--double-next') {
+      let dn = arr[i + 1];
+      trans.push(dn);
+    } else if (arr[i] === '--double-prev') {
+      let dp = arr[i - 1];
+      trans.push(dp);
+    } else if (arr[i] === '--discard-prev') {
+      trans.pop();
+    } else if (arr[i] === '--discard-next') {
+      i++;
+    } else {
+      trans.push(arr[i]);
+    }
+  }
+  return trans;
 }
 
 module.exports = {
