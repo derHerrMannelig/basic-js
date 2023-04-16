@@ -9,13 +9,18 @@ const chainMaker = {
   getLength() {
     return this.chain.length;
   },
-  addLink(value) {
+  addLink(value = '') {
     this.chain.push('( ' + value + ' )');
     return this;
   },
   removeLink(position) {
-    this.chain.splice(position - 1, 1);
-    return this;
+    if (this.chain[position - 1] == undefined) {
+      this.chain = [];
+      throw new Error("You can't remove incorrect link!");
+    } else {
+      this.chain.splice(position - 1, 1);
+      return this;
+    }
   },
   reverseChain() {
     this.chain.reverse();
@@ -23,6 +28,7 @@ const chainMaker = {
   },
   finishChain() {
     let format = this.chain.join('~~');
+    this.chain = [];
     return format;
   }
 };
